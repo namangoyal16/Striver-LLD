@@ -1,25 +1,43 @@
-//Decorator pattern is a structural pattern which is similar to kind of builder pattern where we decide what functionalities
-//        do we want at runtime. let say we have N features so there can be 2^n possibilities of choosing these features
-//        it can grow exponentially very large so we use decorator pattern to choose which feature we want dynamically.
+// Decorator pattern is a structural pattern.
+// It allows us to add functionalities to an object dynamically at runtime.
+//
+// Suppose we have N optional features. If we create a separate class
+// for every possible combination of features, there can be 2^N
+// possible combinations, which can become very large.
+//
+// Instead, we use Decorator pattern to dynamically add the features
+// that we want by wrapping the existing object.
+//
+// Example:
+// Basic Pizza
+//     ↓
+// Cheese Decorator
+//     ↓
+// Olive Decorator
+//
+// Each decorator adds its own functionality without modifying
+// the original BasicPizza class.
 
 
 package StructuralDesignPattern;
-
-import java.sql.SQLOutput;
 
 interface Pizza {
     void Desc();
 }
 
+
 class BasicPizza implements Pizza {
+
     @Override
     public void Desc() {
         System.out.println("It is a basic Pizza");
     }
 }
 
+
 abstract class PizzaDecorator implements Pizza {
-    Pizza pizza;
+
+    protected Pizza pizza;
 
     PizzaDecorator(Pizza pizza) {
         this.pizza = pizza;
@@ -27,44 +45,63 @@ abstract class PizzaDecorator implements Pizza {
 
     @Override
     public void Desc() {
-
+        pizza.Desc();
     }
 }
 
-class CheezeDecorator extends PizzaDecorator {
 
-    CheezeDecorator(Pizza pizza) {
+class CheeseDecorator extends PizzaDecorator {
+
+    CheeseDecorator(Pizza pizza) {
         super(pizza);
     }
 
     @Override
     public void Desc() {
-        pizza.Desc();
-        System.out.println("with extra cheeze");
+
+        // Call the previous object's behavior
+        super.Desc();
+
+        // Add new behavior
+        System.out.println("With extra cheese");
     }
 }
 
-class OliveDecorator extends PizzaDecorator{
-     OliveDecorator(Pizza pizza){
-         super(pizza);
-     }
 
-     @Override
-    public void Desc(){
-         pizza.Desc();
-         System.out.println("With Extra Olives");
-     }
+class OliveDecorator extends PizzaDecorator {
+
+    OliveDecorator(Pizza pizza) {
+        super(pizza);
+    }
+
+    @Override
+    public void Desc() {
+
+        // Call the previous object's behavior
+        super.Desc();
+
+        // Add new behavior
+        System.out.println("With extra olives");
+    }
 }
 
+
 public class DecoratorPattern {
+
     public static void main(String[] args) {
+
         Pizza pizza = new BasicPizza();
+
         pizza.Desc();
 
-        pizza = new CheezeDecorator(pizza);
+        // Add cheese dynamically
+        pizza = new CheeseDecorator(pizza);
+
         pizza.Desc();
 
+        // Add olives dynamically
         pizza = new OliveDecorator(pizza);
+
         pizza.Desc();
     }
 }
