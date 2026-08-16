@@ -1,4 +1,4 @@
-//Decorator pattenr is a structural pattern which is similar to kind of builder pattern where we decide what functionalities
+//Decorator pattern is a structural pattern which is similar to kind of builder pattern where we decide what functionalities
 //        do we want at runtime. let say we have N features so there can be 2^n possibilities of choosing these features
 //        it can grow exponentially very large so we use decorator pattern to choose which feature we want dynamically.
 
